@@ -15,3 +15,16 @@ function my_plugin_create_db() {
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta( $sql );
 }
+
+
+
+
+function my_plugin_remove_database() {
+   global $wpdb;
+   // $table_name = $wpdb->prefix . 'my_analysis';
+   // $table_name = "NestoNovo";
+   $sql = "DROP TABLE IF EXISTS my_tbl_sourov;";
+   $wpdb->query($sql);
+   delete_option("my_plugin_db_version");
+}    
+register_deactivation_hook( __FILE__, 'my_plugin_remove_database' );
